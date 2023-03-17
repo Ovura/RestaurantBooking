@@ -1,0 +1,53 @@
+﻿@page "/"
+@using RestaurantBooking.Models;
+
+@using System.ComponentModel.DataAnnotations
+
+<h1>Restaurant Plus 46</h1>
+
+<p>Select Date you'd like to Book and Time of your choice</p>
+
+<EditForm Model="@reservation" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <MudGrid>
+        <MudItem xs="12" sm="7">
+            <MudCard>
+                <MudCardContent>
+                    <MudHidden Breakpoint="@Breakpoint.Xs">
+                        <MudDatePicker PickerVariant="PickerVariant.Static" Color="Color.Success" Rounded="true" Date="@(DateTime.Today.AddDays(1))" />
+                    </MudHidden>
+                    <br />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudTimePicker Label="Preferred Time" AmPm="true" @bind-Time="time" />
+                    <br />                    
+                </MudCardActions>
+                <br />
+                <MudCardContent>
+                    <MudNumericField @bind-Value="IntValue" Label="Party Size" Variant="Variant.Text" Min="1" Max="15" />
+                </MudCardContent>
+                <MudCardContent>
+                    <MudNumericField @bind-Value="IntValue" Label="Table Number" Variant="Variant.Text" Min="005" Max="020" />
+                </MudCardContent>
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Submit</MudButton>
+            </MudCard>
+        </MudItem>
+        
+       
+    </MudGrid>
+</EditForm>
+
+@code {
+     Reservation reservation = new Reservation();
+    bool success;
+
+    public int IntValue { get; set; }
+
+    TimeSpan? time = new TimeSpan(00, 45, 00);
+
+    private void OnValidSubmit(EditContext context)
+    {
+        success = true;
+        StateHasChanged();
+    }
+}

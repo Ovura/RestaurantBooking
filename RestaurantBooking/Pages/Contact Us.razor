@@ -1,0 +1,68 @@
+﻿@page "/Contact"
+
+@using System.Text.RegularExpressions
+@using System.ComponentModel.DataAnnotations
+@using RestaurantBooking.Models
+
+<p>Fill in the contact form below</p>
+
+<EditForm Model="@contact" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <MudGrid>
+        <MudItem xs="12" sm="7">
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Label="FullName" HelperText="Max. 8 characters"
+                                  @bind-Value="contact.FullName" For="@(() => contact.FullName)" />
+
+                    <MudTextField Label="Email" HelperText="Max. 10 characters"
+                                  @bind-Value="contact.Email" For="@(() => contact.Email)" />
+
+                    <MudTextField Label="Message" HelperText="Max. 120 characters"
+                                  @bind-Value="contact.Message" For="@(() => contact.Message)" />
+
+                    <MudSelect Dense="true" T="string" Label="Gender" Variant="Variant.Text">
+                        <MudSelectItem Value="@("Male")" />
+                        <MudSelectItem Value="@("Female")" />
+                        <MudSelectItem Value="@("Non-Binary")" />
+                    </MudSelect>
+
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+        <MudItem xs="12" sm="5">
+            <MudPaper Class="pa-4 mud-height-full">
+                <MudText Typo="Typo.subtitle2">Validation Summary</MudText>
+                @if (success)
+                {
+                    <MudText Color="Color.Success">Success</MudText>
+                }
+                else
+                {
+                    <MudText Color="@Color.Error">
+                        <ValidationSummary />
+                    </MudText>
+                }
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12">
+            <MudText Typo="Typo.body2" Align="Align.Center">
+                Fill out the form correctly to see the success message.
+            </MudText>
+        </MudItem>
+    </MudGrid>
+</EditForm>
+@code {
+    Contact contact = new Contact();
+    bool success;
+
+    private void OnValidSubmit(EditContext context)
+    {
+        success = true;
+        StateHasChanged();
+    }
+
+}}

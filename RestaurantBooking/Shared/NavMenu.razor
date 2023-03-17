@@ -1,0 +1,39 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">RestaurantBooking</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+
+<MudNavLink Href="/" Match="NavLinkMatch.All">Home</MudNavLink>
+ <MudNavGroup Title="Admin" Expanded="true">
+                <MudNavLink Href="/Reservation" Match="NavLinkMatch.Prefix">Reservations</MudNavLink>
+                <MudNavLink Href="/Members" Match="NavLinkMatch.Prefix">Members</MudNavLink>
+            </MudNavGroup>
+            <MudNavGroup Title="Members" Expanded="true">
+                <MudNavLink Href="/Registration" Match="NavLinkMatch.Prefix">Registration</MudNavLink>
+                <MudNavLink Href="/Login" Match="NavLinkMatch.Prefix">Login</MudNavLink>
+            </MudNavGroup>
+<MudNavLink Href="/FAQ" Match="NavLinkMatch.All">FAQ</MudNavLink>
+
+<MudNavLink Href="/Contact" Match="NavLinkMatch.All">Contact Us</MudNavLink>
+
+
+
+
+
+     
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
